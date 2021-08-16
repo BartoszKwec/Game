@@ -1,27 +1,22 @@
 package pl.kwec;
 
-import java.util.Random;
+import pl.kwec.players.Game;
+import pl.kwec.players.PlayerComp;
+import pl.kwec.statistics.WinStatistics;
 
 public class Main {
 
     public static void main(String[] args){
-        System.out.println("Hello ");
+        Game game = new Game(new WinStatistics());
+        game.stats.clear();
+        game.addPlayer(new PlayerComp("Janusz"));
+        game.addPlayer(new PlayerComp("Ziuta"));
+        game.printPlayers();
 
-        Random r = new Random();
-        int player, computer;
+        for (int i=0; i<100; ++i) {
+            game.play();
+        }
 
-
-        do {
-            System.out.println("---------------------");
-            computer=r.nextInt(6)+1;
-            System.out.println("Komputer: "+computer);
-            player = r.nextInt(6)+1;
-            System.out.println("Gracz: "+player);
-            System.out.println("---------------------");
-            if(player != computer) System.out.println("Pudło!");
-            else System.out.println("Udało się!");
-
-
-        }while(player != computer);
+        game.stats.print();
     }
 }
